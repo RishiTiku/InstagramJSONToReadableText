@@ -6,8 +6,8 @@ import codecs
 tzhh = +5
 tzmm = 30
 
-username = "rishi.tiku" #put your Instagram username here
-filename = "messages.json" #specify either the full file location here or just keep the file in the same folder as this script.
+username = "" #put your Instagram username here in the double quotes
+filename = "messages.json" #if editing, specify either the full file location here or just keep the file in the same folder as this script.
 
 def st(t):
     if int(t)<10:
