@@ -1,13 +1,14 @@
 import json
 import codecs
+import sys
 
 '''Put the hour part of the time zone of your country (with sign +/-) in tzhh and minute part in tzmm.
 (eg for +5:30, put +5 in tzhh and 30 in tzmm)'''
 tzhh = +5
 tzmm = 30
 
-username = "" #put your Instagram username here in the double quotes
-filename = "messages.json" #if editing, specify either the full file location here or just keep the file in the same folder as this script.
+username = str(print('Enter Your Instagram Username here!!! Please enter correctly.')) #gets your Instagram username here in string format
+filename = "messages.json" #if editing this, specify either the full file location here or just keep the file in the same folder as this script.
 
 def st(t):
     if int(t)<10:
@@ -94,8 +95,10 @@ with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
         if(len(p)==2):
             if(p[0]==username):
                 value = 1
-            else:
+            elif(p[1] == username):
                 value = 0
+            else:
+                sys.exit()
             f = open("{}.txt".format(p[value]),"w", encoding = 'utf-8-sig')
             for sender in reversed(participants['conversation']):
                 dtime =  sender['created_at']
