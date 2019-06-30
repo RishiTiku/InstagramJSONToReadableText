@@ -98,6 +98,7 @@ with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
             elif(p[1] == username):
                 value = 0
             else:
+                print('The instagram username you entered is wrong. Try again or maybe change the username argument in source code.')
                 sys.exit()
             f = open("{}.txt".format(p[value]),"w", encoding = 'utf-8-sig')
             for sender in reversed(participants['conversation']):
