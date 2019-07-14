@@ -7,3 +7,7 @@ Hi There,
   
   Just place the messages.json file in the same folder as the script and run test.py. You'll find separate .txt files for each user in perfectly readable format.
                   Enjoy!!!
+
+# Editing The Source Code...
+You can edit the source code yourself to suit your own time zone. Just use an IDE or even notepad. The first parameters can be changed but if you consider yourself a good coder feel free to modify the code to your need.
+
