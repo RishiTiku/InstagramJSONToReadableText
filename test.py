@@ -7,7 +7,8 @@ import sys
 tzhh = +5
 tzmm = 30
 
-username = str(print('Enter Your Instagram Username here!!! Please enter correctly.')) #gets your Instagram username here in string format
+username = str(input('Enter Your Instagram Username here!!! Please enter correctly.\n >>>')) #gets your Instagram username here in string format
+#username = 'rishi.tiku' #My username, if you wish to, replace your username here, remove the '#' in front and put a '#' in front of previous line. 
 filename = "messages.json" #if editing this, specify either the full file location here or just keep the file in the same folder as this script.
 
 def st(t):
@@ -199,3 +200,4 @@ with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
                 f.write('\n')
                 count += 1
         f.close()
+    print('All Done Correctly. Enjoy!!!')
