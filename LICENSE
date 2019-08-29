@@ -8,7 +8,8 @@ in the Software without restriction, including without limitation the rights
 to use the Software only, subject to the following conditions:
 
 1. The code shall not be redistributed commercially by anyone other than the Copyright owner.
-2. The user shall not copy/paste or modify the code and publish it him/herself in any way.
+2. The user shall not copy/paste or modify the code and publish it him/herself in any way 
+   without the prior permission of the Copyright holder.
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
