@@ -11,7 +11,7 @@ Hi There,
 # Editing The Source Code...
 You can edit the source code yourself to suit your own time zone, however the source code will not be redistributed without the prior permisssion of the copyright owner. (See LICENSE below.)
 
-#LICENSE
+# LICENSE
 MIT License
 
 Copyright (c) 2019 Rishi Tiku
