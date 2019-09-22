@@ -133,8 +133,8 @@ with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
                 Time()
                 f.write(date)
                 f.write(", ")
-                f.write(time)
-                f.write(" - ")
+                #f.write(time)
+                #f.write(" - ")
                 if(sender['sender']!= None):
                     f.write(sender['sender'])    
                 else:
@@ -169,8 +169,8 @@ with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
                 Time()
                 f.write(date)
                 f.write(", ")
-                f.write(time)
-                f.write(" - ")
+                #f.write(time)
+                #f.write(" - ")
                 if(sender['sender']!= None):
                     f.write(sender['sender'])    
                 else:
@@ -201,8 +201,8 @@ with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
                 Time()
                 f.write(date)
                 f.write(", ")
-                f.write(time)
-                f.write(" - ")
+                #f.write(time)
+                #f.write(" - ")
                 if(sender['sender']!= None):
                     f.write(sender['sender'])    
                 else:
