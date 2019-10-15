@@ -1,19 +1,14 @@
 """MIT License
-
 Copyright (c) 2019 Rishi Tiku
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights 
 to use the Software only, subject to the following conditions:
-
 1. The code shall not be redistributed commercially by anyone other than the Copyright owner.
 2. The user shall not copy/paste or modify the code and publish it him/herself in any way 
    without the prior permission of the Copyright holder.
-
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
-
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -25,6 +20,7 @@ SOFTWARE."""
 import json
 import codecs
 import sys
+import os
 
 '''Put the hour part of the time zone of your country (with sign +/-) in tzhh and minute part in tzmm.
 (eg for +5:30, put +5 in tzhh and 30 in tzmm)'''
@@ -42,7 +38,12 @@ def st(t):
     else:
         return str(t)
 
-    
+def createDir(dir_name):
+    try:    
+        os.mkdir(dir_name)
+        return True;
+    except:
+        return False    
 
 def Date():
     global date
@@ -125,7 +126,8 @@ with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
             else:
                 print('The instagram username you entered is wrong. Try again or maybe change the username argument in source code.')
                 sys.exit()
-            f = open("{}.txt".format(p[value]),"w", encoding = 'utf-8-sig')
+            createDir(username)
+            f = open(os.path.join(username, "{}.txt".format(p[value])), 'w', encoding = 'utf-8-sig')
             for sender in reversed(participants['conversation']):
                 dtime =  sender['created_at']
                 date = dtime[0:10].replace("-" , "/")
@@ -155,7 +157,7 @@ with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
                         f.write('>')
                 f.write('\n')
         elif(len(p)>2):
-            f = open("Group{}.txt".format(ctr),"w", encoding='utf-8-sig')
+            f = open(os.path.join(username, "Group{}.txt".format(ctr)),"w", encoding='utf-8-sig')
             for i in p:
                 f.write(i)
                 if i != p[-1]:
@@ -193,7 +195,7 @@ with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
 
             ctr = ctr + 1
         else:
-            f = open("AnonymousPerson{}.txt".format(count),"w", encoding='utf-8-sig')
+            f = open(os.path.join(username, "AnonymousPerson{}.txt".format(count)),"w", encoding='utf-8-sig')
             for sender in reversed(participants['conversation']):
                 dtime =  sender['created_at']
                 date = dtime[0:10].replace("-" , "/")
