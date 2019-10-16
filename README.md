@@ -5,7 +5,7 @@ Hi There,
 
   Dumped all of your Instagram data and Downloaded it? Messages.json is unreadable? This Code is Built just for you!
   
-  Just place the messages.json file in the same folder as the script and run test.py. You'll find separate .txt files for each user in perfectly readable format.
+  Just place the messages.json file in the same folder as the script and run test.py. Use Python 3.x. You'll find separate .txt files for each user in perfectly readable format.
                   Enjoy!!! Be sure to leave a star and follow me if you like. :)
 
 # Editing The Source Code...
