@@ -127,6 +127,19 @@ with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
                 print('The instagram username you entered is wrong. Try again or maybe change the username argument in source code.')
                 sys.exit()
             createDir(username)
+
+            path = './' + username + '/' + "{}.txt".format(p[value])
+            filerepeatedcount = 2
+
+            if (os.path.exists(path)):
+                path = './' + username + '/' + p[value] + str(filerepeatedcount) + '.txt'
+
+                while (os.path.exists(path)):
+                    filerepeatedcount += 1
+                    path = './' + username + '/' + p[value] + str(filerepeatedcount) + '.txt'
+
+                p[value] = p[value] + str(filerepeatedcount)
+
             f = open(os.path.join(username, "{}.txt".format(p[value])), 'w', encoding = 'utf-8-sig')
             for sender in reversed(participants['conversation']):
                 dtime =  sender['created_at']
