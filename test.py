@@ -28,7 +28,9 @@ tzhh = +5
 tzmm = 30
 
 username = str(input('Enter Your Instagram Username here!!! Please enter correctly.\n >>>')) #gets your Instagram username here in string format
-#username = 'rishi.tiku' #My username, if you wish to, replace your username here, remove the '#' in front and put a '#' in front of previous line. 
+#username = 'rishi.tiku' #My username, if you wish to, replace your username here, remove the '#' in front of this line and put a '#' in front of previous line. 
+
+
 filename = "messages.json" #if editing this, specify either the full file location here or just keep the file in the same folder as this script.
 
 def st(t):
@@ -43,7 +45,20 @@ def createDir(dir_name):
         os.mkdir(dir_name)
         return True;
     except:
-        return False    
+        return False
+
+def fileExists(string):
+    counter = 0
+    while(1):
+                try:
+                    if(counter == 0):    
+                        f = open(os.path.join(username, "{}.txt".format(string)), 'r', encoding = 'utf-8-sig')
+                    else:
+                        f = open(os.path.join(username, "{} - {}.txt".format(string,counter)), 'r', encoding = 'utf-8-sig')
+                    f.close()
+                except FileNotFoundError:
+                    return counter
+                counter+=1
 
 def Date():
     global date
@@ -127,20 +142,11 @@ with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
                 print('The instagram username you entered is wrong. Try again or maybe change the username argument in source code.')
                 sys.exit()
             createDir(username)
-
-            path = './' + username + '/' + "{}.txt".format(p[value])
-            filerepeatedcount = 2
-
-            if (os.path.exists(path)):
-                path = './' + username + '/' + p[value] + str(filerepeatedcount) + '.txt'
-
-                while (os.path.exists(path)):
-                    filerepeatedcount += 1
-                    path = './' + username + '/' + p[value] + str(filerepeatedcount) + '.txt'
-
-                p[value] = p[value] + str(filerepeatedcount)
-
-            f = open(os.path.join(username, "{}.txt".format(p[value])), 'w', encoding = 'utf-8-sig')
+            result = fileExists(p[value])
+            if(result == 0):
+                f = open(os.path.join(username, "{}.txt".format(p[value])), 'w', encoding = 'utf-8-sig')
+            elif(result>=1):
+                f = open(os.path.join(username, "{} - {}.txt".format(p[value],result)), 'w', encoding = 'utf-8-sig')
             for sender in reversed(participants['conversation']):
                 dtime =  sender['created_at']
                 date = dtime[0:10].replace("-" , "/")
