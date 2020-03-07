@@ -22,12 +22,15 @@ import codecs
 import sys
 import os
 
-'''Put the hour part of the time zone of your country (with sign +/-) in tzhh and minute part in tzmm.
-(eg for +5:30, put +5 in tzhh and 30 in tzmm)'''
-tzhh = +5
-tzmm = 30
+print("""Enter the time zone of your country here.
+Example: For INDIA time is +05:30 hours ahead of GMT.
+         Check the time zone of your country with the +/- sign included.\n\t\t\t*****\n""")
+tzhh = int(input('Enter the HOURS part of YOUR Time Zone in hh format.\nPlease include the +/- sign.\nExample: For +05:30(+hh:mm) as for INDIA, Enter \"+05\" here.\n\t>>>'))
+tzmm = int(input('Enter the MINUTES part YOUR Time Zone in mm format.\nExample: For +05:30(+hh:mm) as for INDIA, Enter \"30\" here.\n\t>>>'))
+#tzhh = +05
+#tzmm = 30
 
-username = str(input('Enter Your Instagram Username here!!! Please enter correctly.\n >>>')) #gets your Instagram username here in string format
+username = str(input('Enter Your Instagram Username here!!! Please enter correctly.\n\t>>>')) #gets your Instagram username here in string format
 #username = 'rishi.tiku' #My username, if you wish to, replace your username here, remove the '#' in front of this line and put a '#' in front of previous line. 
 
 
