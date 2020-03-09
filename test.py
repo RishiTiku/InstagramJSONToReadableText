@@ -44,10 +44,26 @@ def st(t):
     else:
         return str(t)
 
+def folderExists(dir_name):
+    ct=0
+    while(True):
+            if(os.path.exists(dir_name)):
+                break
+            else:
+                check = createDir(username)
+                if(check):
+                    break
+                else:
+                    if(ct==3):
+                        print('Unable to Create Folder')
+                        sys.exit()
+                    ct+=1
+
+
 def createDir(dir_name):
     try:    
         os.mkdir(dir_name)
-        return True;
+        return True
     except:
         return False
 
@@ -126,7 +142,6 @@ def Time():
     time = test
 
 
-
 with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
     data = json.load(f)
     global date
@@ -135,8 +150,21 @@ with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
     global count
     ctr = 1
     count = 1
+    checked = False
+    Name = False
     for participants in data:
         p = participants['participants']
+        if(not(checked)):
+            for i in p:
+                if(i==username):
+                    Name = True
+            checked = True
+            if(Name):
+                createDir(username)
+            else:
+                print('The Instagram username you entered is incorrect. Please try again!')
+                sys.exit()
+            folderExists(username)
         if(len(p)==2):
             if(p[0]==username):
                 value = 1
@@ -145,7 +173,6 @@ with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
             else:
                 print('The instagram username you entered is wrong. Try again or maybe change the username argument in source code.')
                 sys.exit()
-            createDir(username)
             result = fileExists(p[value])
             if(result == 0):
                 f = open(os.path.join(username, "{}.txt".format(p[value])), 'w', encoding = 'utf-8-sig')
