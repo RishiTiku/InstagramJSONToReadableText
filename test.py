@@ -37,12 +37,22 @@ username = str(input('Enter Your Instagram Username here!!! Please enter correct
 
 filename = "messages.json" #if editing this, specify either the full file location here or just keep the file in the same folder as this script.
 
-def st(t):
-    if int(t)<10:
-        string = "0"+str(t)
-        return string
+def Feb(yy):
+    if(yy%4==0):
+        if(yy%100==0):
+            if(yy%400==0):
+                leap = 1
+            else:
+                leap = 0
+        else:
+            leap = 1
     else:
-        return str(t)
+        leap = 0
+
+    if(leap==0):
+        feb = 28
+    else:
+        feb = 29
 
 def folderExists(dir_name):
     ct=0
@@ -80,72 +90,97 @@ def fileExists(string):
                     return counter
                 counter+=1
 
-def Date():
-    global date
-    yy = int(date[0:4])
-    mm = int(date[5:7])
-    dd = int(date[8:10])
-    dd = dd + 1
-    day31 = {1,3,5,7,8,10,12}
-    if mm in day31:
-        if(int(dd/31)==1):
-            mm = mm + 1
-            dd = dd%31
-    elif(mm == 2):
-        if(yy%4==0):
-            if(yy%100==0):
-                if(yy%400==0):
-                    feb = 29
-                else:
-                    feb = 28
-            else:
-                feb = 29
-        else:
-            feb = 28
-        if(int(dd/feb)==1):
-            mm = mm + 1
-            dd = dd%feb
+def Pre(A):
+    if(A<10):
+        A = "0"+str(A)
     else:
-        if(int(dd/30)==1):
-            mm = mm + 1
-            dd = dd%30
-    if(int(mm%12)==1):
-        yy = yy+1
-        mm = mm%12
+        A = str(A)
+    return A
+
+def DateTime(date):
+    global tzhh
+    global tzmm
+    yy = int(date[0:4])
+    mn = int(date[5:7])
+    dd = int(date[8:10])
+    hh = int(date[11:13])
+    mm = int(date[14:16])
+    ss = int(date[17:19])
+    day31 = {1,3,5,7,8,10,12}
+    
+    daytime=((hh*3600)+(mm*60)+ss)
+    if(tzhh<0):
+        tz = ((tzhh*3600)-(tzmm*60))
+    else:
+        tz = ((tzhh*3600)+(tzmm*60))
+    left = daytime + tz
+    if((left%86400)<43200):
+        st = 'AM'
+    else:
+        st = 'PM'
+
+    if(tzhh<0):        
+        if(left<0):
+            if(dd<=1):
+                if(mn<=1):
+                    yy -= 1
+                    mn = 12
+                    dd = 31
+                else:
+                    mn -= 1
+                    if(mn in day31):
+                        dd = 31
+                    elif(mn==2):
+                        dd = Feb(yy)
+                    else:
+                        dd = 30
+            else:
+                dd-=1
+            left = 86400 + left
             
-    test = st(dd)+"/"+ st(mm)+"/"+ st(yy)
-    date = test
+    elif(tzhh>=0):
+        day = int(left/86400)
+        left = (left%86400)
+        if(day==1):
+            if(mn in day31):
+                if(dd==31):
+                    if(mn == 12):
+                        yy += 1
+                        mn = 1
+                        dd = 1
+                    else:       
+                        mn+=1
+                        dd = 1
+                else:
+                    dd+=1
+            elif(mn==2):
+                if(dd==Feb(yy)):
+                     dd = 1
+                     mn += 1
+                else:
+                    dd += 1                        
+            else:
+                if(dd==30):
+                    dd = 1
+                    mn+=1
+                else:
+                    dd+=1
 
-
-
-def Time():
-    global time
-    hh = int(time[0:2])
-    mm = int(time[3:5])
-    ss = int(time[6:8])
-    hh = hh + tzhh
-    mm = mm + tzmm
-    string = " "
-    if mm/60>=1:
-        hh += 1
-        mm = mm%60
-    if(int(hh/24)==1):
-        Date()
-        hh = hh%24
-        string = "AM"
-    elif(int(hh/12)==1):
-        hh = hh%12
-        string = "PM"
-    elif(int(hh/12)==0):
-        string = "AM"
-    test = st(hh)+":"+st(mm)+":"+st(ss)+string
-    time = test
-
+    hh = int(left/3600)
+    if(st=='PM'):
+        hh = hh-12
+    if(hh==0):
+        hh = 12
+        
+    mm = int((left%3600)/60)
+    ss = int(left%60)
+        
+    TimeStamp = Pre(hh)+':'+Pre(mm)+':'+Pre(ss)+' '+st+', '+Pre(dd)+'/'+Pre(mn)+'/'+Pre(yy)
+    return(TimeStamp)
 
 with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
     data = json.load(f)
     global date
-    global time
     global ctr
     global count
     ctr = 1
@@ -180,12 +215,8 @@ with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
                 f = open(os.path.join(username, "{} - {}.txt".format(p[value],result)), 'w', encoding = 'utf-8-sig')
             for sender in reversed(participants['conversation']):
                 dtime =  sender['created_at']
-                date = dtime[0:10].replace("-" , "/")
-                time = dtime[11:19]
-                Time()
-                f.write(date)
-                f.write(", ")
-                f.write(time)
+                date = dtime[0:19]
+                f.write(DateTime(date))
                 f.write(" - ")
                 if(sender['sender']!= None):
                     f.write(sender['sender'])    
@@ -216,12 +247,8 @@ with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
                     f.write("\n\n\n")
             for sender in reversed(participants['conversation']):
                 dtime =  sender['created_at']
-                date = dtime[0:10].replace("-" , "/")
-                time = dtime[11:19]
-                Time()
-                f.write(date)
-                f.write(", ")
-                f.write(time)
+                date = dtime[0:19]
+                f.write(DateTime(date))
                 f.write(" - ")
                 if(sender['sender']!= None):
                     f.write(sender['sender'])    
@@ -242,18 +269,13 @@ with codecs.open(filename, encoding = 'utf-8-sig', errors = 'ignore') as f:
                         f.write(sender['media_share_url'])
                         f.write('>')
                 f.write('\n')
-
             ctr = ctr + 1
         else:
             f = open(os.path.join(username, "AnonymousPerson{}.txt".format(count)),"w", encoding='utf-8-sig')
             for sender in reversed(participants['conversation']):
                 dtime =  sender['created_at']
-                date = dtime[0:10].replace("-" , "/")
-                time = dtime[11:19]
-                Time()
-                f.write(date)
-                f.write(", ")
-                f.write(time)
+                date = dtime[0:19]
+                f.write(DateTime(date))
                 f.write(" - ")
                 if(sender['sender']!= None):
                     f.write(sender['sender'])    
