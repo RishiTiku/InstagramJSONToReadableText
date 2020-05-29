@@ -3,7 +3,7 @@ This script can convert messages.json in your Instagram dump to readable separat
 
 Hi There,
 
-  Dumped all of your Instagram data and Downloaded it? Messages.json is unreadable? This Code is Built just for you!
+  Dumped all of your Instagram data? Messages.json is unreadable? This Code is Built just for you!
   
   Just place the messages.json file in the same folder as the script and run any of the below scripts. You'll find separate .txt files for each user in perfectly readable format.
                   Enjoy!!!
